@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Blaque Baux Breakthrough — the governed meta-allocator. Allocator emits the target, driver routes it
+     through the Layer-3 gate. DRY-RUN until ~/.config/blaquebaux/alpaca_breakthrough.env exists. PAPER only.
+     Runs after the family's sleeve legs + regime emitters have published (late morning). -->
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.blaquebaux.breakthrough</string>
+  <key>ProgramArguments</key><array><string>/bin/bash</string><string>/Users/malcolmx/blaquebaux-breakthrough/live/run_breakthrough_daily.sh</string></array>
+  <key>StartCalendarInterval</key><array>
+    <dict><key>Hour</key><integer>10</integer><key>Minute</key><integer>15</integer></dict>
+    <dict><key>Hour</key><integer>11</integer><key>Minute</key><integer>20</integer></dict>
+  </array>
+  <key>RunAtLoad</key><false/>
+  <key>EnvironmentVariables</key><dict><key>PATH</key><string>/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin</string></dict>
+  <key>StandardOutPath</key><string>/Users/malcolmx/blaquebaux-breakthrough/logs/launchd_breakthrough.out</string>
+  <key>StandardErrorPath</key><string>/Users/malcolmx/blaquebaux-breakthrough/logs/launchd_breakthrough.err</string>
+</dict></plist>

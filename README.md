@@ -46,23 +46,41 @@ drawdown** (−17% vs −34%). The keepers average just **+0.37 pairwise correla
 them harvests the diversification — the whole is genuinely more than its parts. *This is the payoff of the
 entire program:* not one premium, but the disciplined *assembly* of what survived.
 
-## Honest scope (first pass vs the graduation)
-- This is an **ETF-proxy** reconstruction of the keepers — the faithful Julia reconstruction over the real
-  books lives in the base's [`scripts/research/multi_sleeve_portfolio.jl`](https://github.com/blaquebaux/base)
-  (risk-parity / HRP / min-CVaR over the `PortfolioOpt` library). The proxy result proves the *compounding*;
-  numbers will shift with the real books, but the diversification structure (avg corr +0.37) is the point.
-- **Next — the governed allocator driver:** aggregate the live keeper books into one governed order set,
-  risk-budgeted and **regime-conditional** (tilt via the five published signals — bonds/market/dollar/rate
-  regimes — and size portable-alpha sleeves like [bore](https://github.com/blaquebaux/bore) onto the beta).
-  That is the graduation from "it compounds" to "one governed product."
+## The graduation — the governed live allocator (built)
+
+The proof is now a **governed live product.** Two governed steps:
+
+1. [`live/breakthrough_allocator.py`](live/breakthrough_allocator.py) computes today's target book —
+   **risk parity (default) over the brigade ingredient set** (keepers + curated void-fillers crypto/defensive)
+   **+ the bastion bear insurance overlay**, which shorts SPY only when benchmark's `market_regime` is risk-off
+   (the validated regime-conditional tilt). Modes: `BB_ALLOC_MODE=riskparity|minvar|levered`
+   ([breakthrough](https://github.com/blaquebaux/breakthrough) / [brilliant](https://github.com/blaquebaux/brilliant) /
+   [bossy](https://github.com/blaquebaux/bossy)); `BB_BEAR_WEIGHT` is the [bastion](https://github.com/blaquebaux/bastion) dial.
+2. [`live/breakthrough_live.jl`](live/breakthrough_live.jl) reads that target and routes it through the engine's
+   **Layer-3 safety gate** (preflight, idempotency, reconciliation, HWM, kill switch) — exactly like every
+   other sleeve. Own ledger/HWM; dry-run/paper by default; real money needs `BB_LIVE_CONFIRM`.
+
+**No LLM in the order path** — both the allocator and the rail are reproducible code (research emits the
+target, the governed rail executes it). Dry-run verified end-to-end: a 19-name, gross-1.0x, risk-parity book
+across the brigade ingredients, gate **PASS**.
+
+```bash
+python3 live/breakthrough_allocator.py && julia --project=engine live/breakthrough_live.jl   # emit + route
+BB_DRYRUN=1 bash live/run_breakthrough_daily.sh                                               # governed dry-run
+```
+
+*Honest scope:* the allocator reconstructs the keepers as **ETF proxies** (the fully-faithful aggregation over
+the real sleeve drivers is the base's [`multi_sleeve_portfolio.jl`](https://github.com/blaquebaux/base) +
+`PortfolioOpt`, a future consolidation). The proxy result is what was validated (+1.16); numbers shift with the
+real books, but the structure — diversifying ingredients, humble risk-parity, regime-conditional insurance — is
+the product.
 
 ## Status
-**Research validated — the capstone compounds; governed allocator is the graduation.** A risk-budgeted
-combination of the family's keepers (spine/trend/tail/gulf/growth/PE) delivers Sharpe **+1.16** — above the
-best single keeper and the Bogle hurdle — at half the market's drawdown, because the keepers are genuinely
-diversifying (avg corr +0.37). The **first trunk branch that is a keeper**, and the one that turns 40
-ingredients into a portfolio. The governed, regime-conditional live allocator (over the real books) is the
-next build.
+**Governed live allocator built — the capstone graduated.** The validated meta-allocator (risk parity over the
+brigade ingredient set + regime-conditional bastion bear insurance) now emits a target book that routes through
+the Layer-3 safety gate; dry-run PASS (19 names, gross 1.0x). Defaults to breakthrough (risk parity), with
+brilliant (min-variance) and bossy (leverage) as modes. The first trunk branch that is a keeper, and the sleeve
+that turns 40 ingredients into one governed product. Ships dry-run/paper; not yet run as real money.
 
 ## About Blaque Baux
 
@@ -85,7 +103,8 @@ base/blueprint and holds the [full family roster](https://github.com/blaquebaux/
 ```
 engine/     the Blaque Baux platform (git submodule -> blaquebaux/base; incl. the PortfolioOpt library)
 research/   _breakthrough_common.py + breakthrough_1_allocator.py (the meta-allocator proof) + scorecard
-live/       governed regime-conditional allocator over the real keeper books  [the graduation — to build]
+live/       breakthrough_allocator.py (emits the target) + breakthrough_live.jl (governed Layer-3 rail)
+            + run_breakthrough_daily.sh + com.blaquebaux.breakthrough.plist
 ```
 
 ## License

@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this software or research, please cite it using the metadata below."
+title: "BLAQUE BAUX Breakthrough: Risk-Budgeted Capstone Meta-Allocation"
+type: software
+authors:
+  - name: "BLAQUE BAUX"
+repository-code: "https://github.com/blaquebaux/breakthrough"
+url: "https://www.blaquebaux.com/capstone/"
+license: MIT
+keywords:
+  - portfolio construction
+  - asset allocation
+  - risk parity
+  - quantitative finance
+  - capstone

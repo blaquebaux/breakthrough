@@ -1,5 +1,7 @@
 # Blaque Baux Breakthrough
 
+> **CAPSTONE · GOVERNED RESEARCH** &nbsp;|&nbsp; Python / Julia &nbsp;|&nbsp; [Interactive Capstone](https://www.blaquebaux.com/capstone/) &nbsp;|&nbsp; [Research corpus](https://www.blaquebaux.com/corpus/) &nbsp;|&nbsp; [Citation](CITATION.cff)
+
 **The capstone — assemble the keepers into one risk-budgeted portfolio. It compounds: Sharpe +1.16, half the market's drawdown, clear of the Bogle hurdle.**
 
 Breakthrough is the meta-allocator of the Blaque Baux family. The [core repo](https://github.com/blaquebaux/base)
